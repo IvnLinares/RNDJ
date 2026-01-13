@@ -66,7 +66,7 @@ const toggleMode = () => {
       <div class="card border-0" style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.85) 100%); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.12); border-radius: 20px;">
         <div class="card-body p-5">
           <!-- Error Message -->
-          <div v-if="authStore.error" class="alert alert-danger d-flex align-items-center mb-4" role="alert" style="border-radius: 12px; border: none; animation: slideDown 0.3s ease-out;">
+          <div v-if="authStore.error" class="alert alert-danger d-flex align-items-center mb-4" role="alert" aria-live="assertive" style="border-radius: 12px; border: none; animation: slideDown 0.3s ease-out;">
             <i class="fas fa-exclamation-triangle me-2"></i>
             <span>{{ authStore.error }}</span>
           </div>
@@ -75,13 +75,15 @@ const toggleMode = () => {
           <form @submit.prevent="handleSubmit">
             <!-- Username -->
             <div class="mb-4">
-              <label class="form-label fw-semibold mb-2" style="color: #334155;">
+              <label for="username" class="form-label fw-semibold mb-2" style="color: #334155;">
                 {{ isLogin ? 'Usuario o Email' : 'Nombre de Usuario' }}
               </label>
               <input
+                id="username"
                 v-model="form.username"
                 type="text"
                 required
+                autocomplete="username"
                 class="form-control"
                 :placeholder="isLogin ? 'usuario o email' : 'miusuario'"
                 style="border-radius: 12px; border: 2px solid #e2e8f0; padding: 12px 16px; font-size: 1rem;"
@@ -90,11 +92,13 @@ const toggleMode = () => {
 
             <!-- Email (solo registro) -->
             <div v-if="!isLogin" class="mb-4">
-              <label class="form-label fw-semibold mb-2" style="color: #334155;">Email</label>
+              <label for="email" class="form-label fw-semibold mb-2" style="color: #334155;">Email</label>
               <input
+                id="email"
                 v-model="form.email"
                 type="email"
                 required
+                autocomplete="email"
                 class="form-control"
                 placeholder="scout@ejemplo.com"
                 style="border-radius: 12px; border: 2px solid #e2e8f0; padding: 12px 16px; font-size: 1rem;"
@@ -103,10 +107,12 @@ const toggleMode = () => {
 
             <!-- Full Name (solo registro) -->
             <div v-if="!isLogin" class="mb-4">
-              <label class="form-label fw-semibold mb-2" style="color: #334155;">Nombre Completo</label>
+              <label for="fullname" class="form-label fw-semibold mb-2" style="color: #334155;">Nombre Completo</label>
               <input
+                id="fullname"
                 v-model="form.full_name"
                 type="text"
+                autocomplete="name"
                 class="form-control"
                 placeholder="Juan Pérez"
                 style="border-radius: 12px; border: 2px solid #e2e8f0; padding: 12px 16px; font-size: 1rem;"
@@ -115,11 +121,13 @@ const toggleMode = () => {
 
             <!-- Password -->
             <div class="mb-5">
-              <label class="form-label fw-semibold mb-2" style="color: #334155;">Contraseña</label>
+              <label for="password" class="form-label fw-semibold mb-2" style="color: #334155;">Contraseña</label>
               <input
+                id="password"
                 v-model="form.password"
                 type="password"
                 required
+                :autocomplete="isLogin ? 'current-password' : 'new-password'"
                 :minlength="isLogin ? 1 : 8"
                 class="form-control"
                 placeholder="••••••••"
@@ -134,6 +142,7 @@ const toggleMode = () => {
             <button
               type="submit"
               :disabled="authStore.isLoading"
+              :aria-busy="authStore.isLoading"
               class="btn btn-primary w-100 fw-bold py-3"
               style="border-radius: 12px; font-size: 1rem; background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);"
             >
