@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Gestor de ciclo de vida de la aplicación"""
-    logger.info("🚀 Iniciando RNJ-Connect Backend...")
+    logger.info("🚀 Iniciando RNDJ-Connect Backend...")
     
     # Inicializar base de datos
     await init_db()
@@ -24,12 +24,12 @@ async def lifespan(app: FastAPI):
     yield
     
     # Cleanup al cerrar
-    logger.info("👋 Cerrando RNJ-Connect Backend...")
+    logger.info("👋 Cerrando RNDJ-Connect Backend...")
 
 
 # Crear instancia de FastAPI
 app = FastAPI(
-    title="RNJ-Connect API",
+    title="RNDJ-Connect API",
     description="API para la Plataforma de Gamificación de la Red Nacional de Jóvenes Scouts",
     version="1.0.0",
     lifespan=lifespan,
@@ -54,7 +54,7 @@ app.include_router(api_router, prefix="/api/v1")
 async def root():
     """Endpoint raíz - Health check"""
     return {
-        "message": "🎯 RNJ-Connect API - Bienvenido a la Red Nacional de Jóvenes Scouts",
+        "message": "🎯 RNDJ-Connect API - Bienvenido a la Red Nacional de Jóvenes Scouts",
         "status": "online",
         "version": "1.0.0",
         "docs": "/docs"
@@ -66,7 +66,7 @@ async def health_check():
     """Endpoint de salud del servicio"""
     return {
         "status": "healthy",
-        "service": "RNJ-Connect API",
+        "service": "RNDJ-Connect API",
         "database": "connected"
     }
 

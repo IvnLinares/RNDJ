@@ -21,7 +21,7 @@ async def register(
 ):
     """
     Registrar nuevo usuario
-    
+        
     - **email**: Email válido
     - **username**: Nombre de usuario único (min 3 caracteres)
     - **password**: Contraseña (min 8 caracteres)

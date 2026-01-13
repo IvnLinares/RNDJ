@@ -1,6 +1,6 @@
 # ===========================
 # Backend Dependencies
-# RNJ-Connect - Python FastAPI
+# RNDJ-Connect - Python FastAPI
 # ===========================
 
 # FastAPI Framework
@@ -16,6 +16,9 @@ pyodbc==5.0.1
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.6
+
+# Excel handling for Foro
+openpyxl==3.11.0
 
 # Configuration
 pydantic==2.5.3

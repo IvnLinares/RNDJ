@@ -1,132 +1,179 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+import Navbar from '@/components/Navbar.vue'
 
 const authStore = useAuthStore()
-const router = useRouter()
 
 onMounted(async () => {
   if (!authStore.user) {
     await authStore.fetchCurrentUser()
   }
 })
-
-const handleLogout = () => {
-  authStore.logout()
-  router.push('/login')
-}
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-md">
-      <div class="container mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-8">
-            <h1 class="text-2xl font-bold text-blue-900">🏕️ RNJ-Connect</h1>
-            <div class="hidden md:flex space-x-4">
-              <RouterLink to="/dashboard" class="text-gray-700 hover:text-blue-600 font-medium">
-                Dashboard
-              </RouterLink>
-              <RouterLink to="/chat" class="text-gray-700 hover:text-blue-600 font-medium">
-                Chat
-              </RouterLink>
-              <RouterLink to="/gamification" class="text-gray-700 hover:text-blue-600 font-medium">
-                Gamificación
-              </RouterLink>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <RouterLink to="/profile" class="text-gray-700 hover:text-blue-600">
-              👤 {{ authStore.user?.username || 'Perfil' }}
-            </RouterLink>
-            <button
-              @click="handleLogout"
-              class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-            >
-              Salir
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <div>
+    <Navbar />
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-      <div v-if="authStore.user" class="max-w-6xl mx-auto">
+    <main class="container-fluid px-4 px-md-5 py-5">
+      <div v-if="authStore.user" class="container" style="max-width: 1400px;">
         <!-- Welcome Section -->
-        <div class="bg-white rounded-xl shadow-md p-8 mb-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-2">
-            ¡Bienvenido, {{ authStore.user.full_name || authStore.user.username }}! 👋
-          </h2>
-          <p class="text-gray-600">
-            {{ authStore.user.scout_group ? `Grupo Scout: ${authStore.user.scout_group}` : 'Completa tu perfil para conectar con tu grupo' }}
-          </p>
+        <div class="card border-0 shadow-sm mb-4" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+          <div class="card-body">
+            <h2 class="h4 fw-bold mb-1">
+              ¡Hola, {{ authStore.user.full_name || authStore.user.username }}!
+            </h2>
+            <p class="text-muted mb-0">
+              {{ authStore.user.scout_group ? `Grupo Scout: ${authStore.user.scout_group}` : 'Completa tu perfil para conectar con tu grupo' }}
+            </p>
+          </div>
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid md:grid-cols-4 gap-6 mb-8">
-          <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
-            <div class="text-4xl mb-2">⭐</div>
-            <div class="text-3xl font-bold">{{ authStore.user.points || 0 }}</div>
-            <div class="text-blue-100">Puntos</div>
-          </div>
+        <div class="row g-3 mb-4">
+          <!-- Puntos deshabilitados temporalmente -->
+          <!-- <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+              <div class="card-body">
+                <div class="fs-2 mb-2" style="color: #a855f7;">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="h5 fw-bold mb-1">{{ authStore.user.points || 0 }}</div>
+                <small class="text-muted">Puntos Totales</small>
+              </div>
+            </div>
+          </div> -->
 
-          <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 shadow-lg">
-            <div class="text-4xl mb-2">📊</div>
-            <div class="text-3xl font-bold">Nivel {{ authStore.user.level || 1 }}</div>
-            <div class="text-green-100">Tu Nivel</div>
-          </div>
+          <!-- Nivel deshabilitado temporalmente -->
+          <!-- <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+              <div class="card-body">
+                <div class="fs-2 mb-2" style="color: #f97316;">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="h5 fw-bold mb-1">Nivel {{ authStore.user.level || 1 }}</div>
+                <small class="text-muted">Tu Nivel Actual</small>
+              </div>
+            </div>
+          </div> -->
 
-          <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
-            <div class="text-4xl mb-2">🏅</div>
-            <div class="text-3xl font-bold">{{ authStore.user.badges_count || 0 }}</div>
-            <div class="text-purple-100">Insignias</div>
-          </div>
+          <!-- Insignias deshabilitadas temporalmente -->
+          <!-- <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+              <div class="card-body">
+                <div class="fs-2 mb-2" style="color: #4b9ea6;">
+                  <i class="fas fa-medal"></i>
+                </div>
+                <div class="h5 fw-bold mb-1">{{ authStore.user.badges_count || 0 }}</div>
+                <small class="text-muted">Insignias</small>
+              </div>
+            </div>
+          </div> -->
 
-          <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6 shadow-lg">
-            <div class="text-4xl mb-2">🎯</div>
-            <div class="text-3xl font-bold">0</div>
-            <div class="text-orange-100">Misiones</div>
+          <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+              <div class="card-body">
+                <!-- Misiones deshabilitadas temporalmente -->
+              <!-- <div class="fs-2 mb-2" style="color: #a855f7;">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="h5 fw-bold mb-1">0</div>
+                <small class="text-muted">Misiones Activas</small> -->
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Quick Actions -->
-        <div class="grid md:grid-cols-3 gap-6">
-          <RouterLink
-            to="/chat"
-            class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition block"
-          >
-            <div class="text-4xl mb-4">💬</div>
-            <h3 class="text-xl font-bold mb-2">Chat en Vivo</h3>
-            <p class="text-gray-600">Conéctate con otros scouts</p>
-          </RouterLink>
+        <div class="mb-4">
+          <h5 class="fw-bold mb-3">Acciones Rápidas</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <RouterLink to="/chat" class="card border-0 shadow-sm text-decoration-none" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6); color: inherit; transition: transform 0.3s;">
+                <div class="card-body">
+                  <div class="fs-2 mb-3" style="color: #a855f7;">
+                    <i class="fas fa-comments"></i>
+                  </div>
+                  <h6 class="card-title fw-bold">Chat en Vivo</h6>
+                  <p class="card-text small text-muted">Conéctate con otros scouts</p>
+                </div>
+              </RouterLink>
+            </div>
 
-          <RouterLink
-            to="/gamification"
-            class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition block"
-          >
-            <div class="text-4xl mb-4">🎮</div>
-            <h3 class="text-xl font-bold mb-2">Misiones</h3>
-            <p class="text-gray-600">Completa desafíos y gana puntos</p>
-          </RouterLink>
+            <!-- Misiones deshabilitadas temporalmente -->
+            <!-- <div class="col-md-4">
+              <RouterLink to="/gamification" class="card border-0 shadow-sm text-decoration-none" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6); color: inherit; transition: transform 0.3s;">
+                <div class="card-body">
+                  <div class="fs-2 mb-3" style="color: #f97316;">
+                    <i class="fas fa-gamepad"></i>
+                  </div>
+                  <h6 class="card-title fw-bold">Misiones</h6>
+                  <p class="card-text small text-muted">Completa desafíos</p>
+                </div>
+              </RouterLink>
+            </div> -->
 
-          <RouterLink
-            to="/profile"
-            class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition block"
-          >
-            <div class="text-4xl mb-4">👤</div>
-            <h3 class="text-xl font-bold mb-2">Mi Perfil</h3>
-            <p class="text-gray-600">Actualiza tu información</p>
-          </RouterLink>
+            <div class="col-md-4">
+              <RouterLink to="/profile" class="card border-0 shadow-sm text-decoration-none" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6); color: inherit; transition: transform 0.3s;">
+                <div class="card-body">
+                  <div class="fs-2 mb-3" style="color: #4b9ea6;">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <h6 class="card-title fw-bold">Mi Perfil</h6>
+                  <p class="card-text small text-muted">Actualiza tu información</p>
+                </div>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="card border-0 shadow-sm" style="backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.6);">
+          <div class="card-header border-0 bg-transparent">
+            <h6 class="card-title fw-bold mb-0">
+              <i class="fas fa-chart-line me-2" style="color: #a855f7;"></i>Tu Progreso
+            </h6>
+          </div>
+          <div class="card-body">
+            <!-- Progreso de Nivel deshabilitado temporalmente -->
+            <!-- <div class="mb-4">
+              <div class="d-flex justify-content-between mb-2">
+                <span class="fw-semibold">Próximo Nivel</span>
+                <span class="fw-bold" style="color: #a855f7;">{{ authStore.user.points || 0 }} / {{ (authStore.user.level || 1) * 100 }}</span>
+              </div>
+              <div class="progress" style="height: 8px;">
+                <div 
+                  class="progress-bar" 
+                  style="background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%); width: 65%"
+                ></div>
+              </div>
+            </div> -->
+            <p class="text-muted text-center">Funcionalidad de progreso deshabilitada temporalmente</p>
+
+            <!-- Progress Bar 2 - Insignias deshabilitadas temporalmente -->
+            <!-- <div>
+              <div class="d-flex justify-content-between mb-2">
+                <span class="fw-semibold">Insignias Desbloqueadas</span>
+                <span class="fw-bold" style="color: #f97316;">{{ authStore.user.badges_count || 0 }} / 20</span>
+              </div>
+              <div class="progress" style="height: 8px;">
+                <div 
+                  class="progress-bar" 
+                  style="background: linear-gradient(90deg, #f97316 0%, #facc15 100%); width: 35%"
+                ></div>
+              </div>
+            </div> -->
+          </div>
         </div>
       </div>
 
-      <div v-else class="text-center py-20">
-        <div class="text-6xl mb-4">⏳</div>
-        <p class="text-gray-600">Cargando...</p>
+      <div v-else class="text-center py-5">
+        <div class="fs-1 mb-3">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p class="text-muted">Cargando tu aventura...</p>
       </div>
     </main>
   </div>

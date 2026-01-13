@@ -1,18 +1,27 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
 onMounted(() => {
   // Inicializar autenticación si hay token guardado
-  authStore.checkAuth()
+  if (authStore.token && !authStore.user) {
+    authStore.checkAuth()
+  }
+})
+
+// Monitorear cambios en el token
+watch(() => authStore.token, async (newToken) => {
+  if (newToken && !authStore.user) {
+    await authStore.fetchCurrentUser()
+  }
 })
 </script>
 
 <template>
-  <div id="app" class="min-h-screen bg-gray-50">
+  <div id="app" class="min-h-screen">
     <RouterView />
   </div>
 </template>

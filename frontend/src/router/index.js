@@ -31,17 +31,36 @@ const routes = [
     component: () => import('@/views/Chat.vue'),
     meta: { requiresAuth: true }
   },
-  {
-    path: '/gamification',
-    name: 'Gamification',
-    component: () => import('@/views/Gamification.vue'),
-    meta: { requiresAuth: true }
-  },
+  // Gamificación deshabilitada temporalmente
+  // {
+  //   path: '/gamification',
+  //   name: 'Gamification',
+  //   component: () => import('@/views/Gamification.vue'),
+  //   meta: { requiresAuth: true }
+  // },
   {
     path: '/profile',
     name: 'Profile',
     component: () => import('@/views/Profile.vue'),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/foro',
+    name: 'Foro',
+    component: () => import('@/views/Foro.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/foro/participant/:id',
+    name: 'ParticipantView',
+    component: () => import('@/views/ParticipantView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/design-system-showcase',
+    name: 'DesignSystemShowcase',
+    component: () => import('@/views/DesignSystemShowcase.vue'),
+    meta: { requiresAuth: false }
   },
   {
     path: '/:pathMatch(.*)*',

@@ -56,6 +56,16 @@ async def get_users(
     return users
 
 
+@router.get("/me", response_model=UserResponse)
+async def get_current_user(
+    current_user: User = Depends(get_current_user_from_token)
+):
+    """
+    Obtener el perfil del usuario actual autenticado
+    """
+    return current_user
+
+
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(
     user_id: int,

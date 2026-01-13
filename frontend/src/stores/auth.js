@@ -62,7 +62,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (!token.value) return
 
     try {
-      const response = await api.get('/auth/me')
+      const response = await api.get('/users/me')
       user.value = response.data
     } catch (err) {
       console.error('Error obteniendo usuario:', err)

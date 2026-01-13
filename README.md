@@ -1,11 +1,11 @@
-# RNJ-Connect
+# RNDJ-Connect
 
 Plataforma de Gamificación para la Red Nacional de Jóvenes Scouts
 
 ## 🏗️ Arquitectura del Proyecto
 
-```
-RNJ-Connect/
+```text
+RNDJ-Connect/
 ├── backend/                    # API Python FastAPI
 │   ├── app/
 │   │   ├── api/               # Endpoints API
@@ -81,6 +81,7 @@ RNJ-Connect/
 ## 🚀 Stack Técnico
 
 ### Backend
+
 - **FastAPI** (Python 3.11+)
 - **SQLModel** / **SQLAlchemy** (ORM)
 - **SQL Server** (Base de datos)
@@ -89,6 +90,7 @@ RNJ-Connect/
 - **JWT** (Autenticación)
 
 ### Frontend
+
 - **Vue 3** (Composition API con `<script setup>`)
 - **Vite** (Build tool)
 - **Pinia** (State management)
@@ -125,7 +127,7 @@ API_PORT=8000
 DEBUG=True
 
 # Database
-DATABASE_URL=mssql+pyodbc://user:password@localhost:1433/rnjconnect?driver=ODBC+Driver+17+for+SQL+Server
+DATABASE_URL=mssql+pyodbc://user:password@localhost:1433/RNDJconnect?driver=ODBC+Driver+17+for+SQL+Server
 
 # Security
 SECRET_KEY=your-secret-key-here
@@ -161,8 +163,8 @@ npm run dev
 
 ## 📚 Endpoints Principales
 
-- **API Docs**: http://localhost:8000/docs
-- **Frontend**: http://localhost:5173
+- **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
 
 ## 🧪 Testing
 
