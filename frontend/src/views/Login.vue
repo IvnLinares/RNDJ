@@ -7,6 +7,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const isLogin = ref(true)
+const showPassword = ref(false)
 const form = ref({
   username: '',
   email: '',
@@ -122,17 +123,29 @@ const toggleMode = () => {
             <!-- Password -->
             <div class="mb-5">
               <label for="password" class="form-label fw-semibold mb-2" style="color: #334155;">Contraseña</label>
-              <input
-                id="password"
-                v-model="form.password"
-                type="password"
-                required
-                :autocomplete="isLogin ? 'current-password' : 'new-password'"
-                :minlength="isLogin ? 1 : 8"
-                class="form-control"
-                placeholder="••••••••"
-                style="border-radius: 12px; border: 2px solid #e2e8f0; padding: 12px 16px; font-size: 1rem;"
-              />
+              <div class="position-relative">
+                <input
+                  id="password"
+                  v-model="form.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  required
+                  :autocomplete="isLogin ? 'current-password' : 'new-password'"
+                  :minlength="isLogin ? 1 : 8"
+                  class="form-control"
+                  placeholder="••••••••"
+                  style="border-radius: 12px; border: 2px solid #e2e8f0; padding: 12px 45px 12px 16px; font-size: 1rem;"
+                />
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-decoration-none text-muted"
+                  style="z-index: 5; padding-right: 15px;"
+                  :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+                  title="Mostrar/Ocultar contraseña"
+                >
+                  <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </button>
+              </div>
               <small v-if="!isLogin" class="text-muted d-block mt-2">
                 Mínimo 8 caracteres
               </small>
